@@ -4,7 +4,7 @@ async function createStock(stockSymbol, like, ip) {
     //console.log(`createStock(stockSymbol: ${stockSymbol}, like: ${like}`);
     const stock = new Stock({
         symbol: stockSymbol,
-        likes: (like === true || like === "true") ? [ip] : []
+        likes: like ? [ip] : []
     });
     return await stock.save();
 }

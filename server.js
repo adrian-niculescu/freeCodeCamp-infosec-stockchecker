@@ -12,6 +12,17 @@ require("./db-connection.js");
 
 const app = express();
 
+// Use Helmet's Middleware
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            styleSrc: ["'self'"],
+            scriptSrc: ["'self'"],
+        }
+    }
+}));
+
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({ origin: '*' })); //For FCC testing purposes only
@@ -37,9 +48,6 @@ app.use(function(req, res, next) {
         .type('text')
         .send('Not Found');
 });
-
-// Use Helmet's Middleware
-app.use(helmet());
 
 //Start our server and tests!
 const listener = app.listen(process.env.PORT || 3000, function() {
