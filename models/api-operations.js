@@ -5,7 +5,6 @@ const BASE_URL = 'https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock'
 
 async function fetchStock(stockSymbol) {
     const url = `${BASE_URL}/${stockSymbol}/quote`;
-    console.log(`Will fetch from url: ${url}`);
     const response = await fetch(url);
     const { symbol, latestPrice } = await response.json();
     console.log(`Fetched stock: ${symbol}, ${latestPrice}`);
@@ -49,7 +48,6 @@ async function processGetStockPricesRequest(stockOrStocks, like, ip) {
     }
     const { symbol, latestPrice } = await fetchStock(stockOrStocks);
     if (!symbol) {
-        console.log(`No symbol found`);
         return { stockData: { likes: like ? 1 : 0 } };
     }
     const stockData = await saveStock(symbol, like, ip);
